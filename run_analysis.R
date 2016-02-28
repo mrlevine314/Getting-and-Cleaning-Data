@@ -12,7 +12,10 @@ if (!file.exists(file)) {
   download.file(fileUrl,file, method = "curl")
 }
 
-#
+# Check if file has been unzipped. If not, unzips file.
+if (!file.exists("UCI HAR Dataset")) {
+  unzip(file)
+}
   
   
   
