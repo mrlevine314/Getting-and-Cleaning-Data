@@ -25,4 +25,13 @@ activity_labels[,2] <- as.character(activity_labels[,2])
 features <- read.table("UCI HAR Dataset/features.txt")
 features[,2] <- as.character(features[,2])
 
+# Identifies mean and standard deviation info
+mean_sd <- grep (".*mean.*| .*std.*", features[,2])
+mean_sd.names <- features[mean_sd,2]
+mean_sd.names = gsub('-mean', 'Mean', mean_sd.names)
+mean_sd.names = gsub('-std', 'Std', mean_sd.names)
+mean_sd.names <- gsub('[-()]', '', mean_sd.names)
+
+
+
 
