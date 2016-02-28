@@ -32,6 +32,26 @@ mean_sd.names = gsub('-mean', 'Mean', mean_sd.names)
 mean_sd.names = gsub('-std', 'Std', mean_sd.names)
 mean_sd.names <- gsub('[-()]', '', mean_sd.names)
 
+# Load the datasets
+train <- read.table("UCI HAR Dataset/train/X_train.txt")[mean_sd]
+trainActivities <- read.table("UCI HAR Dataset/train/Y_train.txt")
+trainSubjects <- read.table("UCI HAR Dataset/train/subject_train.txt")
+train <- cbind(trainSubjects, trainActivities, train)
 
+test <- read.table("UCI HAR Dataset/test/X_test.txt")[mean_sd]
+testActivities <- read.table("UCI HAR Dataset/test/Y_test.txt")
+testSubjects <- read.table("UCI HAR Dataset/test/subject_test.txt")
+test <- cbind(testSubjects, testActivities, test)
 
+# merge datasets and add labels
+allData <- rbind(train, test)
+colnames(allData) <- c("subject", "activity", mean_sd.names)
 
+# turn activities & subjects into factors
+allData$activity <- factor(allData$activity, levels = activity_labels[,1], labels = activity_labels[,2])
+allData$subject <- as.factor(allData$subject)
+
+allData.melted <- melt(allData, id = c("subject", "activity"))
+allData.mean <- dcast(allData.melted, subject + activity ~ variable, mean)
+
+write.table(allData.mean, "tidy.txt", row.names = FALSE, quote = FALSE)
