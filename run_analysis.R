@@ -27,7 +27,7 @@ xTrain <- read.table('./train/x_train.txt',header=FALSE);
 yTrain <- read.table('./train/y_train.txt',header=FALSE); 
 
 # Assign column names to the initial and training data
-colnames(activityLabels) = c('activityId','activityType');
+colnames(activityLabels) = c('activityId','activityLabels');
 colnames(subjectTrain) = "subjectId";
 colnames(xTrain) = features[,2]; 
 colnames(yTrain) = "activityId";
@@ -97,13 +97,13 @@ colnames(finalData) = colNames;
 
 # 5. Create a second, independent tidy data set with the average of each variable for each activity and each subject
 
-# Create a new table, finalDataNoActivityType without the activityType column
-finalDataNoActivityType <- finalData[,names(finalData) != 'activityType'];
+# Create a new table, finalDataNoActivityLabels without the activityLabels column
+finalDataNoActivityLabels <- finalData[,names(finalData) != 'activityLabels'];
 
-# Summarizing the finalDataNoActivityType table to include just the mean of each variable for each activity and each subject
-tidyData <- aggregate(finalDataNoActivityType[,names(finalDataNoActivityType) != c('activityId','subjectId')],by=list(activityId=finalDataNoActivityType$activityId,subjectId = finalDataNoActivityType$subjectId),mean);
+# Summarizing the finalDataNoActivityLabels table to include just the mean of each variable for each activity and each subject
+tidyData <- aggregate(finalDataNoActivityLabels[,names(finalDataNoActivityLabels) != c('activityId','subjectId')],by=list(activityId=finalDataNoActivityLabels$activityId,subjectId = finalDataNoActivityLabels$subjectId),mean);
 
-# Merging the tidyData with activityType to include descriptive activity names
+# Merging the tidyData with activityLabels to include descriptive activity names
 tidyData <- merge(tidyData,activityLabels,by='activityId',all.x=TRUE);
 
 # Export the tidyData set 
