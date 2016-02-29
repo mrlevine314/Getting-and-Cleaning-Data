@@ -24,13 +24,13 @@ subjectTrain = read.table('./train/subject_train.txt',header=FALSE);
 xTrain       = read.table('./train/x_train.txt',header=FALSE); 
 yTrain       = read.table('./train/y_train.txt',header=FALSE); 
 
-# Assigin column names to the data imported above
+# Assign column names to the data imported above
 colnames(activityLabels)  = c('activityId','activityType');
 colnames(subjectTrain)  = "subjectId";
 colnames(xTrain)        = features[,2]; 
 colnames(yTrain)        = "activityId";
 
-# cCreate the final training set by merging yTrain, subjectTrain, and xTrain
+# Create the final training set by merging yTrain, subjectTrain, and xTrain
 trainingData = cbind(yTrain,subjectTrain,xTrain);
 
 # Read in the test data
@@ -102,7 +102,7 @@ finalDataNoActivityType  = finalData[,names(finalData) != 'activityType'];
 tidyData    = aggregate(finalDataNoActivityType[,names(finalDataNoActivityType) != c('activityId','subjectId')],by=list(activityId=finalDataNoActivityType$activityId,subjectId = finalDataNoActivityType$subjectId),mean);
 
 # Merging the tidyData with activityType to include descriptive activity names
-tidyData    = merge(tidyData,activityType,by='activityId',all.x=TRUE);
+tidyData    = merge(tidyData,activityLabels,by='activityId',all.x=TRUE);
 
 # Export the tidyData set 
 write.table(tidyData, './tidyData.txt',row.names=TRUE,sep='\t');
