@@ -1,21 +1,3 @@
-##########################################################################################################
-
-# runAnalysis.r File Description:
-
-# This script will perform the following steps on the UCI HAR Dataset downloaded from 
-# https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
-# 1. Merge the training and the test sets to create one data set.
-# 2. Extract only the measurements on the mean and standard deviation for each measurement. 
-# 3. Use descriptive activity names to name the activities in the data set
-# 4. Appropriately label the data set with descriptive activity names. 
-# 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
-
-##########################################################################################################
-
-
-# Clean up workspace
-rm(list=ls())
-
 # 1. Merge the training and the test sets to create one data set.
 
 # Save filename for efficiency and correctness
@@ -31,6 +13,9 @@ if (!file.exists(file)) {
 if (!file.exists("UCI HAR Dataset")) {
   unzip(file)
 }
+
+# Set working directory to new dataset
+setwd("./UCI HAR Dataset/")
 
 # Read in the data from files
 features     = read.table('./features.txt',header=FALSE); #imports features.txt
