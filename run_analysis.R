@@ -108,3 +108,6 @@ tidyData <- merge(tidyData,activityLabels,by='activityId',all.x=TRUE);
 
 # Export the tidyData set 
 write.table(tidyData, './tidyData.txt',row.names=TRUE,sep='\t')
+
+# Outputs tidyData set
+tidyData
