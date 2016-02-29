@@ -17,34 +17,36 @@ if (!file.exists("UCI HAR Dataset")) {
 # Set working directory to new dataset
 setwd("./UCI HAR Dataset/")
 
-# Read in the data from files
+# Read initial data 
 features <- read.table('./features.txt',header=FALSE); 
 activityLabels <- read.table('./activity_labels.txt',header=FALSE); 
+
+# Read training data
 subjectTrain <- read.table('./train/subject_train.txt',header=FALSE); 
 xTrain <- read.table('./train/x_train.txt',header=FALSE); 
 yTrain <- read.table('./train/y_train.txt',header=FALSE); 
 
-# Assign column names to the data imported above
+# Assign column names to the initial and training data
 colnames(activityLabels) = c('activityId','activityType');
 colnames(subjectTrain) = "subjectId";
 colnames(xTrain) = features[,2]; 
 colnames(yTrain) = "activityId";
 
-# Create the final training set by merging yTrain, subjectTrain, and xTrain
+# Create final training set by merging yTrain, subjectTrain, and xTrain
 trainingData <- cbind(yTrain,subjectTrain,xTrain);
 
-# Read in the test data
+# Read test data
 subjectTest <- read.table('./test/subject_test.txt',header=FALSE); 
 xTest <- read.table('./test/x_test.txt',header=FALSE);
 yTest <- read.table('./test/y_test.txt',header=FALSE); 
 
-# Assign column names to the test data imported above
+# Assign column names to the test data
 colnames(subjectTest) = "subjectId";
 colnames(xTest) = features[,2]; 
 colnames(yTest) = "activityId";
 
 
-# Create the final test set by merging the xTest, yTest and subjectTest data
+# Create final test set by merging the xTest, yTest and subjectTest data
 testData <- cbind(yTest,subjectTest,xTest);
 
 
