@@ -1,1 +1,11 @@
-# code book
+Code Book
+
+This is a summary of the variables that result in the final output, tidyData.txt, from run.analysis.R
+
+Variables
+
+features: reads 'features.txt' file
+activityLabels: reads 'activity_labels.txt' file
+subjectTrain: reads 'subject_train.txt' file
+xTrain: reads 'x_train.txt' file
+yTrain: reads 'y_train.txt' file
